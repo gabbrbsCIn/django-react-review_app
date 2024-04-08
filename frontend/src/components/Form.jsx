@@ -23,6 +23,7 @@ function Form({ route, method }) {
                 username,
                 password,
             });
+            console.log("funcionou")
 
             if (method === "login") {
                 localStorage.setItem(ACCESS_TOKEN, response.data.access);
@@ -39,26 +40,26 @@ function Form({ route, method }) {
             setLoading(false)
         }
     }
-        return <form onSubmit={handleSubmit} className="form-container">
-            <h1> {name} </h1>
-            <input
-                className="form-input"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Nome de Usuário"
-            />
-            <input
-                className="form-input"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Senha"
-            />
-            <button className="form-button" type="submit" > {name} </button>
-        </form>
+    return <form onSubmit={handleSubmit} className="form-container">
+        <h1> {name} </h1>
+        <input
+            className="form-input"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Nome de Usuário"
+        />
+        <input
+            className="form-input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Senha"
+        />
+        <button className="form-button" type="submit" > {name} </button>
+    </form>
 
-    
+
 }
 
 
