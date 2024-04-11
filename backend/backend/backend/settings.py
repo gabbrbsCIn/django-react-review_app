@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'app',
     'rest_framework',
     'corsheaders',
-    'review_app'
+    'review_api'
 ]
 
 MIDDLEWARE = [
