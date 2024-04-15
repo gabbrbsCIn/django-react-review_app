@@ -3,10 +3,24 @@ import { useState } from 'react';
 function TextBox() {
 
     const [text, setText] = useState("")
+    const [quiz, setQuiz] = useState([])
     const handleChange = (event) => {
         setText(event.target.value);
     }
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const response = await axios.post('/generate-quiz', {
+                text: text
+            });
+
+            setQuiz(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <>
@@ -20,7 +34,7 @@ function TextBox() {
                         className='bg-gray-100 w-full p-2 border border-gray-300 rounded-lg focus:outline-none h-full max-h-full'
                         placeholder="Digite aqui..."
                     />
-                    <button className='flex justify-end mt-3 w-full'>Revisar</button>
+                    <button className='flex justify-end mt-3 w-full' onClick={handleSubmit} >Revisar</button>
                 </div>
                 
             </div>

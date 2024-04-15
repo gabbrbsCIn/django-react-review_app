@@ -4,7 +4,6 @@ function Home() {
     return (
         <>
            <TextBox/>
-           <button>Olá</button>
         </>
     )
 }
