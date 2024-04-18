@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
+import Quiz from './pages/Quiz';
 
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -21,14 +22,14 @@ function RegisterAndLogout() {
 
 
 function App() {
-
-
+  
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<ProtectedRoute> <Home /> </ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterAndLogout />} />
+        <Route path="/quiz" element={<Quiz />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
