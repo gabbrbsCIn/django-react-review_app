@@ -1,4 +1,12 @@
 import re
+import os
+import google.generativeai as genai
+import json
+
+api_key = os.getenv('GOOGLE_API_KEY')
+genai.configure(api_key=api_key)
+model = genai.GenerativeModel('gemini-pro')
+
 
 def parse_quiz(quiz_text):
     questions_and_answers = re.split(r'\n\n+', quiz_text.strip())
@@ -22,3 +30,27 @@ def parse_quiz(quiz_text):
     return(quiz_dict)
 
 
+
+
+def generate_quiz(data):
+    script = f'''Faça tipo um quiz de revisão de conteúdo (com 8 perguntas e 4 quatro alternativas cada, com o gabarito delas no fim)  de acordo com este meu fichamento: {data}. Use esse modelo como base: **Quiz de Revisão**
+
+    **1. Pergunta?**
+    (a) x
+    (b) y
+    (c) z.
+    (d) w
+    
+    **Gabarito:**
+
+    1. (a)
+    2. (b)
+    '''
+    
+    quiz = model.generate_content(script)
+    generated_text = quiz.text
+    print(generated_text)
+    quiz_dict = parse_quiz(generated_text)
+    print(quiz_dict)
+
+    return quiz_dict
