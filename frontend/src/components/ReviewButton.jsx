@@ -11,6 +11,8 @@ function ReviewButton({ route, data }) {
         try {
             const response = await api.post(route, { data: data });
             console.log(response.data);
+            const saving_quiz = await api.post("/save-quiz", { data: response.data});
+            console.log(saving_quiz.data);
             window.location.href = "/quiz";
         } catch (error) {
             console.error(error);
