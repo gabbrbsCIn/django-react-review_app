@@ -7,8 +7,10 @@ import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import Quiz from './pages/Quiz';
 
+import { LayoutDashboard } from "lucide-react";
+import Sidebar from './components/SideBar';
+import { SidebarItem } from './components/SideBar';
 import ProtectedRoute from './components/ProtectedRoute';
-
 
 function Logout() {
   localStorage.clear()
@@ -20,20 +22,46 @@ function RegisterAndLogout() {
   return <Register />
 }
 
-
 function App() {
-  
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ProtectedRoute> <Home /> </ProtectedRoute>} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<RegisterAndLogout />} />
-        <Route path="/quiz" element={<Quiz />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={
+            <>
+              <div className='flex'>
+                <Sidebar>
+                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
+                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
+                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
+                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
+                </Sidebar>
+              </div>
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            </>
+          } />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterAndLogout />} />
+          <Route path="/quiz" element={
+            <>
+              <div className='flex'>
+                <Sidebar>
+                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
+                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
+                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
+                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
+                </Sidebar>
+              </div>
+              <Quiz />
+            </>
+          } />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   )
 }
 
