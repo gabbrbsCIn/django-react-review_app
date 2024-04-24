@@ -27,10 +27,9 @@ function TextBox() {
 
     return (
         <>
-            <div className='flex justify-center h-screen py-20 font-poppins'>
-
-                <div className='flex flex-col items-center w-2/3 bg-gray-200 p-4 rounded-lg '>
-                    <h1 className='mb-2'>Fichamento 01</h1>
+            <div className='flex justify-center h-screen w-screen py-20 '>
+                <div className='flex flex-col items-center w-2/3 bg-gray-200 p-4 rounded-lg font-poppins '>
+                    <h1 className='mb-2'>Fichamento</h1>
                     <textarea
                         onChange={handleChange}
                         value={text}

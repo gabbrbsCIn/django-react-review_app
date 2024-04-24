@@ -29,17 +29,18 @@ function App() {
         <Routes>
           <Route path="/" element={
             <>
-              <div className='flex'>
+              <div className='flex font-poppins'>
                 <Sidebar>
                   <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
                   <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
                   <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
                   <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
                 </Sidebar>
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
               </div>
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
+              
             </>
           } />
           <Route path="/login" element={<Login />} />
