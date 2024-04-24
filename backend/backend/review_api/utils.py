@@ -3,6 +3,10 @@ import os
 import google.generativeai as genai
 import json
 
+from .models import Revision, Quiz, Question, Choice
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+
 api_key = os.getenv('GOOGLE_API_KEY')
 genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-pro')
@@ -54,3 +58,21 @@ def generate_quiz(data):
     print(quiz_dict)
 
     return quiz_dict
+
+
+
+def save_quiz(data):
+    user = User.objects.get(id=14)
+    revision = Revision.objects.get_or_create(user=user)[0]
+    quiz = Quiz.objects.create(revision=revision, title="Quiz", description=revision.title)
+
+    for key, value in data.items():
+        question = Question.objects.create(quiz=quiz, text=value['question'])
+
+        for choice_key, choice_value in value['answers'].items():
+            is_correct = choice_key == value['correct_answer']
+
+            choice = Choice.objects.create(question=question, text=choice_value, is_correct=is_correct)
+
+    
+    return JsonResponse({"msg":"Quiz salvo com sucesso!"})
