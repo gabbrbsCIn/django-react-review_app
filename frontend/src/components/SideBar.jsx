@@ -1,10 +1,27 @@
 import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react"
-import { useContext, createContext, useState } from "react"
+import { useContext, createContext, useState, useEffect } from "react"
+import api from "../api"
 
 const SidebarContext = createContext()
 
 export default function Sidebar({ children }) {
     const [expanded, setExpanded] = useState(true)
+
+    const route = '/users/get_username/';
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await api.get(route);
+                setUsername(response.data.data); // Assuming "data" key holds the username
+            } catch (error) {
+                alert(error); // Or handle error appropriately
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <aside className="h-screen">
@@ -37,7 +54,7 @@ export default function Sidebar({ children }) {
           `}
                     >
                         <div className="leading-4">
-                            <h4 className="font-semibold">John Doe</h4>
+                            <h4 className="font-semibold">Olá, {username}!</h4>
                         </div>
                         <MoreVertical size={20} />
                     </div>
