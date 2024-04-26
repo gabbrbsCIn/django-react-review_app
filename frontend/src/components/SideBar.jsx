@@ -1,6 +1,7 @@
 import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react"
 import { useContext, createContext, useState, useEffect } from "react"
 import api from "../api"
+import { ACCESS_TOKEN } from "../constants"
 
 const SidebarContext = createContext()
 
@@ -9,14 +10,20 @@ export default function Sidebar({ children }) {
 
     const route = '/users/get_username/';
     const [username, setUsername] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await api.get(route);
-                setUsername(response.data.data); // Assuming "data" key holds the username
+                const token = localStorage.getItem(ACCESS_TOKEN);
+                if (token) {
+                    const response = await api.get(route);
+                    setUsername(response.data.data); 
+                }
             } catch (error) {
-                alert(error); // Or handle error appropriately
+                alert(error); 
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -48,13 +55,10 @@ export default function Sidebar({ children }) {
                 <div className="border-t flex p-3">
 
                     <div
-                        className={`
-              flex justify-between items-center
-              overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}
-          `}
+                        className={`flex justify-between items-center overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}
                     >
                         <div className="leading-4">
-                            <h4 className="font-semibold">Olá, {username}!</h4>
+                            {isLoading ? null : <h4 className="font-semibold">Olá, {username}!</h4>}
                         </div>
                         <MoreVertical size={20} />
                     </div>
