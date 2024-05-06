@@ -7,10 +7,9 @@ import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import Quiz from './pages/Quiz';
 
-import { LayoutDashboard } from "lucide-react";
 import Sidebar from './components/SideBar';
-import { SidebarItem } from './components/SideBar';
 import ProtectedRoute from './components/ProtectedRoute';
+import SideBarItems from './components/SideBarItems';
 
 function Logout() {
   localStorage.clear()
@@ -31,33 +30,29 @@ function App() {
             <>
               <div className='flex font-poppins'>
                 <Sidebar>
-                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
-                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
-                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
-                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
+                  <SideBarItems />
                 </Sidebar>
                 <ProtectedRoute>
                   <Home />
                 </ProtectedRoute>
               </div>
-              
+
             </>
           } />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<RegisterAndLogout />} />
+
           <Route path="/quiz" element={
             <>
-              <div className='flex'>
+              <div className='flex font-poppins'>
                 <Sidebar>
-                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
-                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
-                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
-                  <SidebarItem icon={<LayoutDashboard size={20} />} text="Dashboard" />
+                  <SideBarItems />
                 </Sidebar>
               </div>
               <Quiz />
             </>
           } />
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterAndLogout />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
