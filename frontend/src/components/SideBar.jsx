@@ -1,4 +1,4 @@
-import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react"
+import { MoreVertical, ChevronLast, ChevronFirst, LogOut } from "lucide-react"
 import { useContext, createContext, useState, useEffect } from "react"
 import api from "../api"
 import { ACCESS_TOKEN } from "../constants"
@@ -18,10 +18,10 @@ export default function Sidebar({ children }) {
                 const token = localStorage.getItem(ACCESS_TOKEN);
                 if (token) {
                     const response = await api.get(route);
-                    setUsername(response.data.data); 
+                    setUsername(response.data.data);
                 }
             } catch (error) {
-                alert(error); 
+                console.log(error);
             } finally {
                 setIsLoading(false);
             }
@@ -30,14 +30,18 @@ export default function Sidebar({ children }) {
         fetchData();
     }, []);
 
+    const handleLogout = () => {
+        localStorage.removeItem(ACCESS_TOKEN);
+        window.location.reload();
+    };
+
     return (
         <aside className="h-screen">
             <nav className="h-full flex flex-col bg-white border-r shadow-sm">
                 <div className="p-4 pb-2 flex justify-between items-center">
                     <img
                         src=""
-                        className={`overflow-hidden transition-all ${expanded ? "w-32" : "w-0"
-                            }`}
+                        className={`overflow-hidden transition-all ${expanded ? "w-32" : "w-0"}`}
                         alt=""
                     />
                     <button
@@ -52,15 +56,16 @@ export default function Sidebar({ children }) {
                     <ul className="flex-1 px-3">{children}</ul>
                 </SidebarContext.Provider>
 
-                <div className="border-t flex p-3">
+                <div className="border-t flex p-3 w-full">
 
-                    <div
-                        className={`flex justify-between items-center overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}
-                    >
+                    <div className={`flex justify-between items-center overflow-hidden transition-all ${expanded ? "w-60 ml-3" : "w-0"}`}>
                         <div className="leading-4">
                             {isLoading ? null : <h4 className="font-semibold">Olá, {username}!</h4>}
                         </div>
-                        <MoreVertical size={20} />
+                        <button className="p-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 ">
+                            <LogOut size={24} onClick={handleLogout} />
+                        </button>
+
                     </div>
                 </div>
             </nav>
