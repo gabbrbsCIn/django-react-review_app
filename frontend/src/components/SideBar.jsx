@@ -62,8 +62,8 @@ export default function Sidebar({ children }) {
                         <div className="leading-4"> 
                             {isLoading ? null : <h4 className="flex p-2 rounded-md font-semibold bg-gray-800 text-white">  {username}</h4>}
                         </div>
-                        <button className={"p-1 rounded-md bg-transparent transition-colors duration-300 hover:bg-red-500" } >
-                            <LogOut color="#fff"  onClick={handleLogout}  />
+                        <button className={"p-1 rounded-md bg-transparent transition-colors duration-300 hover:bg-red-400" } >
+                            <LogOut color="#111827"  onClick={handleLogout}  />
                         </button>
 
                     </div>
@@ -84,13 +84,13 @@ export function SidebarItem({ icon, text, active, alert }) {
         transition-colors group
         ${active
                     ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
-                    : "hover:bg-gray-800 text-gray-600"
+                    : "hover:bg-white text-gray-600"
                 }
     `}
         >
             {icon}
             <span
-                className={`overflow-hidden transition-all text-white ${expanded ? "w-52 ml-3" : "w-0"
+                className={`overflow-hidden transition-all text-gray-800 ${expanded ? "w-52 ml-3" : "w-0"
                     }`}
             >
                 {text}
