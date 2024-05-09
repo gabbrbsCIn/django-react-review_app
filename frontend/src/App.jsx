@@ -23,11 +23,13 @@ function RegisterAndLogout() {
 }
 
 
-const RouteSidebar = ({ children }) => (
+const ProtectedRouteLayout = ({ children }) => (
   <div className='flex font-poppins'>
-    <Sidebar>
-      <SideBarItems />
-    </Sidebar>
+    <ProtectedRoute>
+      <Sidebar>
+        <SideBarItems />
+      </Sidebar>
+    </ProtectedRoute>
     {children}
   </div>
 );
@@ -37,27 +39,21 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={
-          <ProtectedRoute>
-            <RouteSidebar>
-              <Home />
-            </RouteSidebar>
-          </ProtectedRoute>
+          <ProtectedRouteLayout>
+            <Home />
+          </ProtectedRouteLayout>
         } />
 
         <Route path="/quiz" element={
-          <ProtectedRoute>
-            <RouteSidebar>
-              <Quiz />
-            </RouteSidebar>
-          </ProtectedRoute>
+          <ProtectedRouteLayout>
+            <Quiz />
+          </ProtectedRouteLayout>
         } />
 
         <Route path="/fichamentos" element={
-          <ProtectedRoute>
-            <RouteSidebar>
-              <Revision />
-            </RouteSidebar>
-          </ProtectedRoute>
+          <ProtectedRouteLayout>
+            <Revision />
+          </ProtectedRouteLayout>
         } />
 
         <Route path="/login" element={<Login />} />
