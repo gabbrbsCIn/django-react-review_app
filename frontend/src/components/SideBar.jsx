@@ -59,11 +59,11 @@ export default function Sidebar({ children }) {
                 <div className="border-t border-gray-600 flex p-3 w-full">
 
                     <div className={`flex justify-between items-center overflow-hidden transition-all ${expanded ? "w-60 ml-3" : "w-0"}`}>
-                        <div className="leading-4"> 
+                        <div className="leading-4">
                             {isLoading ? null : <h4 className="flex p-2 rounded-md font-semibold bg-gray-800 text-white">  {username}</h4>}
                         </div>
-                        <button className={"p-1 rounded-md bg-transparent transition-colors duration-300 hover:bg-red-400" } >
-                            <LogOut color="#111827"  onClick={handleLogout}  />
+                        <button className={"p-1.5 rounded-md bg-transparent transition-colors duration-300 hover:bg-red-400"} >
+                            <LogOut color="#111827" onClick={handleLogout} />
                         </button>
 
                     </div>
