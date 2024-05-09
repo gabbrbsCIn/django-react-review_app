@@ -23,16 +23,18 @@ function RegisterAndLogout() {
 }
 
 
-const ProtectedRouteLayout = ({ children }) => (
-  <div className='flex font-poppins'>
-    <ProtectedRoute>
-      <Sidebar>
-        <SideBarItems />
-      </Sidebar>
-    </ProtectedRoute>
-    {children}
-  </div>
-);
+function ProtectedRouteLayout({ children }) {
+  return (
+    <div className='flex font-poppins'>
+      <ProtectedRoute>
+        <Sidebar>
+          <SideBarItems />
+        </Sidebar>
+      </ProtectedRoute>
+      {children}
+    </div>)
+
+};
 
 function App() {
   return (
