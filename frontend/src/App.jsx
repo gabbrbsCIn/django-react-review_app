@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import Quiz from './pages/Quiz';
+import Revision from './pages/Revision';
 
 import Sidebar from './components/SideBar';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -21,44 +22,50 @@ function RegisterAndLogout() {
   return <Register />
 }
 
+
+const RouteSidebar = ({ children }) => (
+  <div className='flex font-poppins'>
+    <Sidebar>
+      <SideBarItems />
+    </Sidebar>
+    {children}
+  </div>
+);
+
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={
-            <>
-              <div className='flex font-poppins'>
-                <Sidebar>
-                  <SideBarItems />
-                </Sidebar>
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={
+          <ProtectedRoute>
+            <RouteSidebar>
+              <Home />
+            </RouteSidebar>
+          </ProtectedRoute>
+        } />
 
-            </>
-          } />
-
-          <Route path="/quiz" element={
-            <>
-              <div className='flex font-poppins'>
-                <Sidebar>
-                  <SideBarItems />
-                </Sidebar>
-              </div>
+        <Route path="/quiz" element={
+          <ProtectedRoute>
+            <RouteSidebar>
               <Quiz />
-            </>
-          } />
+            </RouteSidebar>
+          </ProtectedRoute>
+        } />
 
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<RegisterAndLogout />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  )
+        <Route path="/fichamentos" element={
+          <ProtectedRoute>
+            <RouteSidebar>
+              <Revision />
+            </RouteSidebar>
+          </ProtectedRoute>
+        } />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegisterAndLogout />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
 export default App;
