@@ -10,6 +10,9 @@ function Home() {
             <Card text={"Fichamento de Matemática"}>
                 <ButtonCard />
             </Card>
+            <Card text={"Fichamento de Matemática"}>
+                {/* <ButtonCard /> */}
+            </Card>
 
         </div>
 
