@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views import View
+from .models import Revision
 from . import utils
 
 import json
@@ -24,3 +25,13 @@ class SaveQuiz(View):
         print(data)
         quiz_saved = utils.save_quiz(data)
         return JsonResponse({"msg":"Quiz salvo com sucesso!"})
+
+class RevisionManager(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        title = data.get('title')
+        user_id = data.get('user_id')
+
+        revision = Revision.objects.create(title=title, user_id=user_id)
+
+        return JsonResponse({"msg":"Fichamento salvo com sucesso!"})
