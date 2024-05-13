@@ -8,7 +8,7 @@ const SidebarContext = createContext()
 export default function Sidebar({ children }) {
     const [expanded, setExpanded] = useState(true)
 
-    const route = '/users/get_username/';
+    const route = '/users/get_user/';
     const [username, setUsername] = useState('');
     const [isLoading, setIsLoading] = useState(true);
 
@@ -18,7 +18,7 @@ export default function Sidebar({ children }) {
                 const token = localStorage.getItem(ACCESS_TOKEN);
                 if (token) {
                     const response = await api.get(route);
-                    setUsername(response.data.data);
+                    setUsername(response.data.username);
                 }
             } catch (error) {
                 console.log(error);
