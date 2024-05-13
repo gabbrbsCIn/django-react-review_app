@@ -14,10 +14,10 @@ class CreateUserView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
 
-class GetUsernameView(generics.RetrieveAPIView):
+class GetUserView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
         username = request.user.username
-        print(username)
-        return Response({"data": username})
+        user_id = request.user.id
+        return Response({"username": username, "user_id": user_id})
