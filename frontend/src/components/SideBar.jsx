@@ -2,34 +2,18 @@ import { MoreVertical, ChevronLast, ChevronFirst, LogOut } from "lucide-react"
 import { useContext, createContext, useState, useEffect } from "react"
 import api from "../api"
 import { ACCESS_TOKEN } from "../constants"
-
+import UserContext from "../contexts/userContext"
 const SidebarContext = createContext()
 
 export default function Sidebar({ children }) {
     const [expanded, setExpanded] = useState(true)
 
-    const route = '/users/get_user/';
-    const [username, setUsername] = useState('');
+    const {user} = useContext(UserContext);
+
+    
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const token = localStorage.getItem(ACCESS_TOKEN);
-                if (token) {
-                    const response = await api.get(route);
-                    setUsername(response.data.username);
-                }
-            } catch (error) {
-                console.log(error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
-
+    
     const handleLogout = () => {
         localStorage.removeItem(ACCESS_TOKEN);
         window.location.reload();
@@ -60,7 +44,7 @@ export default function Sidebar({ children }) {
 
                     <div className={`flex justify-between items-center overflow-hidden transition-all ${expanded ? "w-60 ml-3" : "w-0"}`}>
                         <div className="leading-4">
-                            {isLoading ? null : <h4 className="flex p-2 rounded-md font-semibold bg-gray-800 text-white">  {username}</h4>}
+                            <h4 className="flex p-2 rounded-md font-semibold bg-gray-800 text-white">  {user.username}</h4>
                         </div>
                         <button className={"p-1.5 rounded-md bg-transparent transition-colors duration-300 hover:bg-red-400"} >
                             <LogOut color="#111827" onClick={handleLogout} />
