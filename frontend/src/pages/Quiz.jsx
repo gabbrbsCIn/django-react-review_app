@@ -1,8 +1,11 @@
-
+import UserContext from '../contexts/userContext';
+import { useContext } from 'react';
 
 function Quiz() {
+    const { user } = useContext(UserContext);
+    
     return (
-        <h1>Quiz Page</h1>
+        <h1>Quiz Page do {user.username}</h1>
     )
 }
 
