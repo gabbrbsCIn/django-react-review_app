@@ -19,14 +19,18 @@ function Home() {
   const title = 'Olá, ' + user.username + '!';
 
   return (
-    
+
     <MainLayout title={title}>
-      <Card text={"Fichamento de Matemática"}>
-        <ButtonCard />
-      </Card>
-      <Card text={"Fichamento de Matemática"}>
-        <ButtonCard />
-      </Card>
+
+      <div className='flex flex-wrap ml-36'>
+        <Card text={"Fichamento de Matemática"}>
+          <ButtonCard type={"abrir"} />
+        </Card>
+        <Card text={"Fichamento de Matemática"}>
+          <ButtonCard type={"abrir"} />
+        </Card>
+      </div>
+
     </MainLayout>
   )
 }
