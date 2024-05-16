@@ -1,5 +1,5 @@
-import api from "../api";
-import { ACCESS_TOKEN } from "../constants";
+import api from "./api";
+import { ACCESS_TOKEN } from "./constants";
 
 const getUser = async (setUser, setIsLoading) => {
     try {
