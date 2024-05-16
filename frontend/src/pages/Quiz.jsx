@@ -1,11 +1,16 @@
 import UserContext from '../contexts/userContext';
 import { useContext } from 'react';
+import MainLayout from '../components/MainLayout';
 
 function Quiz() {
     const { user } = useContext(UserContext);
-    
+    const title = 'Quiz do '+ user.username;
+
+
     return (
-        <h1>Quiz Page do {user.username}</h1>
+        <MainLayout title={title}>
+            
+        </MainLayout>
     )
 }
 

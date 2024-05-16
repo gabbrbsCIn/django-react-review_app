@@ -1,7 +1,7 @@
 import { MoreVertical, ChevronLast, ChevronFirst, LogOut } from "lucide-react"
 import { useContext, createContext, useState, useEffect } from "react"
-import api from "../api"
-import { ACCESS_TOKEN } from "../constants"
+import api from "../services/api"
+import { ACCESS_TOKEN } from "../services/constants"
 import UserContext from "../contexts/userContext"
 const SidebarContext = createContext()
 

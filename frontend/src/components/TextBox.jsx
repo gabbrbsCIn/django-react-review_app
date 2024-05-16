@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import api from '../api';
+import api from '../services/api';
+
 import ReviewButton from './ReviewButton';
 
 function TextBox() {

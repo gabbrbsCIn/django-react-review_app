@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../api";
-import { ACCESS_TOKEN, ACCESS_REFRESH } from "../constants";
+import { ACCESS_TOKEN, ACCESS_REFRESH } from "../services/constants";
 import "../index.css";
+import api from "../services/api";
 
 function Form({ route, method }) {
 
