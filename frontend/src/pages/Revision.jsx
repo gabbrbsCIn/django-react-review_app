@@ -40,7 +40,7 @@ function Revision() {
                         <div className='flex flex-col pl-36'>
                             <AddButton onAdd={handleAddRevision} />
                         </div>
-                        <div className='flex flex-wrap py-8 ml-36'>
+                        <div className='flex flex-wrap py-8 ml-36  overflow-y-auto max-h-[calc(100vh-9rem)]'>
                             {revisions.map((revision) => (
                                 <Card text={revision.title} key={revision.id} {...revision}>
                                     <ButtonCard type={"abrir"} />
