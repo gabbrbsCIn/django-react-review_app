@@ -1,37 +1,44 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views import View
+
 from .models import Revision
+
+from .serializers import RevisionSerializer
+
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics
+from rest_framework.views import APIView
+
 from . import utils
 
 import json
 
 
-class GetReview(View):
-    def get(self, request):
-        return JsonResponse({"msg": "olá mundo!"})
-
+class GetReview(APIView):
     def post(self, request):
-        data = json.loads(request.body)
-        data = data.get('data')
-        quiz_dict = utils.generate_quiz(data)                
+        data = request.data
+        quiz_dict = utils.generate_quiz(data.get('data'))
         return JsonResponse(quiz_dict)
 
 
-class SaveQuiz(View):
+class SaveQuiz(APIView):
     def post(self, request):
-        data = json.loads(request.body)
-        data = data.get('data')
-        print(data)
-        quiz_saved = utils.save_quiz(data)
-        return JsonResponse({"msg":"Quiz salvo com sucesso!"})
+        data = request.data
+        print(data.get('data'))
+        quiz_saved = utils.save_quiz(data.get('data'))
+        return JsonResponse({"msg": "Quiz salvo com sucesso!"})
 
-class RevisionManager(View):
-    def post(self, request):
-        data = json.loads(request.body)
-        title = data.get('title')
-        user_id = data.get('user_id')
+        
 
-        revision = Revision.objects.create(title=title, user_id=user_id)
+class RevisionManager(generics.ListCreateAPIView):
+    serializer_class = RevisionSerializer
+    permission_classes = [IsAuthenticated]
 
-        return JsonResponse({"msg":"Fichamento salvo com sucesso!"})
+    def get_queryset(self):
+        return Revision.objects.filter(user_id=self.request.user.id)
+
+    def perform_create(self, serializer):
+        serializer.save(user_id=self.request.user.id)
+
+    
