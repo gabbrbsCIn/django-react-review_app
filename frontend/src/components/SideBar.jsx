@@ -8,19 +8,19 @@ const SidebarContext = createContext()
 export default function Sidebar({ children }) {
     const [expanded, setExpanded] = useState(true)
 
-    const {user} = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
-    
+
     const [isLoading, setIsLoading] = useState(true);
 
-    
+
     const handleLogout = () => {
         localStorage.removeItem(ACCESS_TOKEN);
         window.location.reload();
     };
 
     return (
-        <aside className="h-screen">
+        <aside className="h-screen ">
             <nav className="h-full flex flex-col border-r border-gray-600 bg-amber-300 shadow-sm">
                 <div className="p-4 pb-2 flex justify-between items-center">
                     <img
