@@ -32,6 +32,10 @@ function Revision() {
         setRevisions([...revisions, newRevision]);
     };
 
+    const handleRemoveRevision = (id) => {
+        setRevisions(revisions.filter(revision => revision.id !== id));
+    };
+
     return (
         <>
             {isLoading ? <div className="flex w-screen justify-center items-center animate-spin"><LoaderIcon size={30} /></div> :
@@ -41,11 +45,11 @@ function Revision() {
                             <AddButton onAdd={handleAddRevision} />
                         </div>
                         <div className='flex flex-wrap py-8 ml-36  overflow-y-auto max-h-[calc(100vh-9rem)]'>
-                            {revisions.length === 0 ? <h1 className='text-xl w-full'>Nenhum fichamento encontrado : </h1> :
+                            {revisions.length === 0 ? <h1 className='text-xl w-full'>Nenhum fichamento encontrado </h1> :
                                 revisions.map((revision) => (
                                     <Card text={revision.title} key={revision.id} {...revision}>
                                         <ButtonCard type={"abrir"} id={revision.id}/>
-                                        <ButtonCard type={"excluir"} id={revision.id}/>
+                                        <ButtonCard type={"excluir"} id={revision.id} onRemove={handleRemoveRevision}/>
                                     </Card>
                                 ))}
                         </div>
