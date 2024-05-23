@@ -40,13 +40,14 @@ function Revision() {
                         <div className='flex flex-col pl-36'>
                             <AddButton onAdd={handleAddRevision} />
                         </div>
-                        <div className='flex flex-wrap py-8 ml-36'>
-                            {revisions.map((revision) => (
-                                <Card text={revision.title} key={revision.id} {...revision}>
-                                    <ButtonCard type={"abrir"} />
-                                    <ButtonCard type={"excluir"} />
-                                </Card>
-                            ))}
+                        <div className='flex flex-wrap py-8 ml-36  overflow-y-auto max-h-[calc(100vh-9rem)]'>
+                            {revisions.length === 0 ? <h1 className='text-xl w-full'>Nenhum fichamento encontrado : </h1> :
+                                revisions.map((revision) => (
+                                    <Card text={revision.title} key={revision.id} {...revision}>
+                                        <ButtonCard type={"abrir"} id={revision.id}/>
+                                        <ButtonCard type={"excluir"} id={revision.id}/>
+                                    </Card>
+                                ))}
                         </div>
                     </div>
                 </MainLayout>}

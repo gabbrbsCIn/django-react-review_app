@@ -1,8 +1,24 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-function ButtonCard({ type }) {
+import api from "../services/api";
+
+
+function ButtonCard({ type, id }) {
     const [text, setText] = useState('');
     const [buttonClass, setButtonClass] = useState('bg-yellow-200 px-4 py-1 rounded-xl hover:bg-yellow-400 transition duration-300 mr-2');
+
+    const handleDelete = () => {
+        const fetchData = async () => {
+            try {
+                const response = await api.delete(`revision/${id}`);
+                console.log(response);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+    };
 
     useEffect(() => {
         if (type === "excluir") {
@@ -15,8 +31,8 @@ function ButtonCard({ type }) {
     }, [type]);
 
     return (
-        <button className={buttonClass}>{text}</button>
-    )
+        type === "abrir" ? <Link to={'/'} className={buttonClass}>{text}</Link> : <button className={buttonClass} onClick={handleDelete}>{text}</button>
+    );
 }
 
 export default ButtonCard;
