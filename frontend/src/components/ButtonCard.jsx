@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import api from "../services/api";
 
 
-function ButtonCard({ type, id }) {
+function ButtonCard({ type, id, onRemove }) {
     const [text, setText] = useState('');
     const [buttonClass, setButtonClass] = useState('bg-yellow-200 px-4 py-1 rounded-xl hover:bg-yellow-400 transition duration-300 mr-2');
 
@@ -13,6 +13,9 @@ function ButtonCard({ type, id }) {
             try {
                 const response = await api.delete(`revision/${id}`);
                 console.log(response);
+                alert('Fichamento excluído com sucesso!')
+                onRemove(id);
+                
             } catch (error) {
                 console.error(error);
             }

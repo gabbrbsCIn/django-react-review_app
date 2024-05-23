@@ -31,7 +31,7 @@ class SaveQuiz(APIView):
 
         
 
-class RevisionManager(generics.ListCreateAPIView):
+class RevisionManagerView(generics.ListCreateAPIView):
     serializer_class = RevisionSerializer
     permission_classes = [IsAuthenticated]
 
@@ -41,4 +41,14 @@ class RevisionManager(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id)
 
-    
+
+class RevisionDestroyView(generics.DestroyAPIView):
+    serializer_class = RevisionSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Revision.objects.filter(user_id=self.request.user.id)
+
+    def perform_destroy(self, instance):
+        instance.delete()
+        return JsonResponse({"msg": "Revisão deletada com sucesso!"})
