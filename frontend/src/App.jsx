@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import Quiz from './pages/Quiz';
 import Revision from './pages/Revision';
+import RevisionItem from './pages/RevisionItem';
 
 import Sidebar from './components/SideBar';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -79,10 +80,19 @@ function App() {
             <Revision />
           </ProtectedRouteLayout>
         } />
+        <Route path="/fichamentos/:id" element={
+          <ProtectedRouteLayout>
+            <RevisionItem />
+          </ProtectedRouteLayout>
+        } />
+        <Route path="*" element={
+          <ProtectedRouteLayout>
+            <NotFound />
+          </ProtectedRouteLayout>
+        } />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterAndLogout />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
