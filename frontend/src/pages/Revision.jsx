@@ -38,7 +38,7 @@ function Revision() {
 
     return (
         <>
-            {isLoading ? <div className="flex w-screen justify-center items-center animate-spin"><LoaderIcon size={30} /></div> :
+            {isLoading ? <div className="flex w-full justify-center items-center h-20"><LoaderIcon size={30} /></div> :
                 <MainLayout title={title}>
                     <div className='flex flex-col'>
                         <div className='flex flex-col pl-36'>
@@ -48,8 +48,8 @@ function Revision() {
                             {revisions.length === 0 ? <h1 className='text-xl w-full'>Nenhum fichamento encontrado </h1> :
                                 revisions.map((revision) => (
                                     <Card text={revision.title} key={revision.id} {...revision}>
-                                        <ButtonCard type={"abrir"} id={revision.id}/>
-                                        <ButtonCard type={"excluir"} id={revision.id} onRemove={handleRemoveRevision}/>
+                                        <ButtonCard type={"abrir"} id={revision.id} />
+                                        <ButtonCard type={"excluir"} id={revision.id} onRemove={handleRemoveRevision} />
                                     </Card>
                                 ))}
                         </div>

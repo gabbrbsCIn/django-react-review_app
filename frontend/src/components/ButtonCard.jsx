@@ -15,7 +15,7 @@ function ButtonCard({ type, id, onRemove }) {
                 console.log(response);
                 alert('Fichamento excluído com sucesso!')
                 onRemove(id);
-                
+
             } catch (error) {
                 console.error(error);
             }
@@ -34,7 +34,7 @@ function ButtonCard({ type, id, onRemove }) {
     }, [type]);
 
     return (
-        type === "abrir" ? <Link to={'/'} className={buttonClass}>{text}</Link> : <button className={buttonClass} onClick={handleDelete}>{text}</button>
+        type === "abrir" ? <Link to={`/fichamentos/${id}`} className={buttonClass}>{text}</Link> : <button className={buttonClass} onClick={handleDelete}>{text}</button>
     );
 }
 

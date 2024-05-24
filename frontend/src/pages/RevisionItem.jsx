@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { fetchData } from '../services/revisionService';
 
 import TextBox from '../components/TextBox';
+import { LoaderIcon } from 'lucide-react';
 
 function RevisionItem() {
     const { id } = useParams();
@@ -33,10 +34,10 @@ function RevisionItem() {
 
 
     return (
-        <div>
-            {isLoading ? () => L :
+        <div className='h-screen w-screen'>
+            {isLoading ? <div className="flex w-full justify-center items-center h-20"><LoaderIcon size={30} /></div> :
 
-                <TextBox />
+                <TextBox revision={foundRevision} />
 
             }
 
