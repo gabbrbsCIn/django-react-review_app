@@ -23,10 +23,10 @@ function Home() {
     <MainLayout title={title}>
 
       <div className='flex flex-wrap ml-36'>
-        <Card text={"Fichamento de Matemática"}>
+        <Card title={"Fichamento de Matemática"}>
           <ButtonCard type={"abrir"} />
         </Card>
-        <Card text={"Fichamento de Matemática"}>
+        <Card title={"Fichamento de Matemática"}>
           <ButtonCard type={"abrir"} />
         </Card>
       </div>

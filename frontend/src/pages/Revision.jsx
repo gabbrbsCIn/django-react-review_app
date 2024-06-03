@@ -9,7 +9,6 @@ import Card from '../components/Card';
 import ButtonCard from '../components/ButtonCard';
 
 function Revision() {
-    const { user } = useContext(UserContext);
     const [revisions, setRevisions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const title = 'Seus Fichamentos';
@@ -18,7 +17,9 @@ function Revision() {
         const fetchData = async () => {
             try {
                 const response = await api.get('revision');
+                console.log(response.data);
                 setRevisions(response.data);
+                console.log(revisions);
                 setIsLoading(false);
             } catch (error) {
                 console.error(error);
@@ -44,10 +45,10 @@ function Revision() {
                         <div className='flex flex-col pl-36'>
                             <AddButton onAdd={handleAddRevision} />
                         </div>
-                        <div className='flex flex-wrap py-8 ml-36  overflow-y-auto max-h-[calc(100vh-9rem)]'>
+                        <div className='flex flex-wrap py-8 ml-36 overflow-y-auto max-h-[calc(100vh-9rem)]'>
                             {revisions.length === 0 ? <h1 className='text-xl w-full'>Nenhum fichamento encontrado </h1> :
                                 revisions.map((revision) => (
-                                    <Card text={revision.title} key={revision.id} {...revision}>
+                                    <Card title={revision} key={revision.id} {...revision}>
                                         <ButtonCard type={"abrir"} id={revision.id} />
                                         <ButtonCard type={"excluir"} id={revision.id} onRemove={handleRemoveRevision} />
                                     </Card>
