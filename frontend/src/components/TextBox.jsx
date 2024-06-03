@@ -1,32 +1,52 @@
-import { useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import { debounce } from 'lodash';
+
 import api from '../services/api';
 
 import ReviewButton from './ReviewButton';
 
 function TextBox({ revision }) {
+    const [text, setText] = useState(revision.text);
+    const [quiz, setQuiz] = useState(null);
 
-    const [text, setText] = useState("")
-    const [quiz, setQuiz] = useState([])
-
-    const handleChange = (event) => {
-        setText(event.target.value);
-    }
-    console.log(revision.title)
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
+    const handleSave = useCallback(async (updatedText) => {
         try {
-            const response = await api.post('/generate-quiz', {
-                text: text
+            const response = await api.put(`/revision/update/${revision.id}`, {
+                text: updatedText
             });
-
-            setQuiz(response.data);
+            console.log(response.data);
         } catch (error) {
             console.error(error);
         }
+    }, [revision.id]);
 
+    const debouncedSave = useCallback(debounce(handleSave, 1000), [handleSave]);
 
-    }
+    const handleChange = (e) => {
+        const newText = e.target.value;
+        setText(newText);
+        debouncedSave(newText);
+    };
+
+    useEffect(() => {
+        return () => {
+            debouncedSave.cancel();
+        };
+    }, [debouncedSave]);
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+
+    //     try {
+    //         const response = await api.post('/generate-quiz', {
+    //             text: text
+    //         });
+
+    //         setQuiz(response.data);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
 
     return (
         <div className='flex justify-center h-screen w-full py-20 px-36'>
