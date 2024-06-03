@@ -4,5 +4,5 @@ from .models import Revision
 class RevisionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Revision
-        fields = ['id', 'title', 'user_id']
+        fields = ['id', 'title', 'text', 'user_id']
         read_only_fields = ['user_id']
