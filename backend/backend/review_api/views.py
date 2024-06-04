@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views import View
 
-from .models import Revision
+from .models import Revision, Quiz
 
-from .serializers import RevisionSerializer
+from .serializers import RevisionSerializer, QuizSerializer
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
@@ -56,9 +56,9 @@ class RevisionDestroyView(generics.DestroyAPIView):
         return JsonResponse({"msg": "Revisão deletada com sucesso!"})
 
 class RevisionUpdateView(generics.UpdateAPIView):
+    serializer_class = RevisionSerializer
     permission_classes = [IsAuthenticated]
     queryset = Revision.objects.all()
-    serializer_class = RevisionSerializer
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -66,3 +66,23 @@ class RevisionUpdateView(generics.UpdateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return JsonResponse(serializer.data)
+
+class QuizListView(generics.ListAPIView):
+    serializer_class = QuizSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        revision_id = self.request.query_params.get('revision_id')
+        return Quiz.objects.filter(revision_id=revision_id)
+
+
+class QuizDeleteView(generics.DestroyAPIView):
+    serializer_class = QuizSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Quiz.objects.filter(revision__user_id=self.request.user.id)
+
+    def perform_destroy(self, instance):
+        instance.delete()
+        return JsonResponse({"msg": "Quiz deletado com sucesso!"})
