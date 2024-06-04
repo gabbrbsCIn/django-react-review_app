@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import GetReview, SaveQuiz, RevisionManagerView, RevisionDestroyView, RevisionUpdateView
+from .views import GetReview, SaveQuiz, RevisionManagerView, RevisionDestroyView, RevisionUpdateView, QuizListView, QuizDeleteView
 from . import views
 
 urlpatterns = [
@@ -8,4 +8,7 @@ urlpatterns = [
     path("revision", RevisionManagerView.as_view(), name="revision"),
     path("revision/<int:pk>", RevisionDestroyView.as_view(), name="delete_revision"),
     path("revision/update/<int:pk>", RevisionUpdateView.as_view(), name="update_revision"),
+    path("quiz", QuizListView.as_view(), name="quiz"),
+    path("quiz/<int:pk>", QuizDeleteView.as_view(), name="delete_quiz"),
+
 ]
