@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 
-
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -18,6 +17,7 @@ import UserContext from './contexts/userContext';
 import { LoaderIcon } from 'lucide-react';
 
 import getUser from "./services/userService";
+import { RevisionProvider } from './contexts/revisionContext';
 
 function Logout() {
   localStorage.clear();
@@ -53,7 +53,9 @@ function ProtectedRouteLayout({ children }) {
                 <SideBarItems />
               </Sidebar>
             </ProtectedRoute>
-            {children}
+            <RevisionProvider>
+              {children}
+            </RevisionProvider>
           </UserContext.Provider>
         </>
       )}

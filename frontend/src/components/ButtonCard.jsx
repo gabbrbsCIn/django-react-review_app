@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 import api from "../services/api";
 
 
-function ButtonCard({ type, id, onRemove }) {
+function ButtonCard({ type, id, onRemove, route }) {
     const [text, setText] = useState('');
     const [buttonClass, setButtonClass] = useState('bg-yellow-200 px-4 py-1 rounded-xl hover:bg-yellow-400 transition duration-300 mr-2');
 
     const handleDelete = () => {
         const fetchData = async () => {
             try {
-                const response = await api.delete(`revision/${id}`);
+                const response = await api.delete(`${route}/${id}`);
                 console.log(response);
                 alert('Fichamento excluído com sucesso!')
                 onRemove(id);
