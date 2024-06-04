@@ -61,10 +61,10 @@ def generate_quiz(data):
 
 
 
-def save_quiz(data):
-    user = User.objects.get(id=14)
-    revision = Revision.objects.get_or_create(user=user)[0]
-    quiz = Quiz.objects.create(revision=revision, title="Quiz", description=revision.title)
+def save_quiz(data, user, revision):
+    user = User.objects.get(username=user)
+    revision_instance = Revision.objects.get(id=revision['id'])
+    quiz = Quiz.objects.create(revision=revision_instance, title="Quiz - " + revision['title'])
 
     for key, value in data.items():
         question = Question.objects.create(quiz=quiz, text=value['question'])

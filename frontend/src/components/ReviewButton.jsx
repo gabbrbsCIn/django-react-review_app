@@ -1,9 +1,10 @@
 import api from "../services/api";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function ReviewButton({ route, data }) {
+function ReviewButton({ route, data, revision }) {
     const [isLoading, setIsLoading] = useState(false);
-
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -11,9 +12,10 @@ function ReviewButton({ route, data }) {
         try {
             const response = await api.post(route, { data: data });
             console.log(response.data);
-            const saving_quiz = await api.post("/save-quiz", { data: response.data});
+            const saving_quiz = await api.post("/save-quiz", { data: response.data, revision: revision});
             console.log(saving_quiz.data);
-            window.location.href = "/quiz";
+
+            navigate("/quiz/")
         } catch (error) {
             console.error(error);
         } finally {

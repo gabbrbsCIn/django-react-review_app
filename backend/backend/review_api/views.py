@@ -25,8 +25,10 @@ class GetReview(APIView):
 class SaveQuiz(APIView):
     def post(self, request):
         data = request.data
+        revision = request.data.get('revision')
         print(data.get('data'))
-        quiz_saved = utils.save_quiz(data.get('data'))
+        quiz = data.get('data')
+        quiz_saved = utils.save_quiz(quiz, request.user, revision)
         return JsonResponse({"msg": "Quiz salvo com sucesso!"})
 
         
