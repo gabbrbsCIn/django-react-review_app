@@ -20,7 +20,7 @@ function Quiz() {
     const [selectedRevision, setSelectedRevision] = useState(null);
     const [deletedQuizId, setDeletedQuizId] = useState(null);
 
-    const title = 'Quiz do ' + user.username;
+    const title = 'Quizzes de ' + user.username;
 
     useEffect(() => {
         const fetchQuizzes = async () => {
@@ -64,26 +64,27 @@ function Quiz() {
                         options={revisionOptions}
                         onChange={setSelectedRevision}
                         isLoading={revisionsLoading}
-                        placeholder="Selecione uma revisão"
+                        placeholder="Selecione um fichamento"
                     />
+
                 </div>
 
                 <div className='flex flex-wrap py-8 ml-36 overflow-y-auto max-h-[calc(100vh-9rem)]'>
-                    {selectedRevision === null && <h1 className='text-xl w-full'>Selecione um Fichamento</h1>}
-                    {quizLoading ? (
+                    {quizLoading && selectedRevision !== null ? (
                         <div><LoaderIcon /></div>
                     ) : (
                         (quiz.length === 0 && selectedRevision !== null) ? (
                             <h1 className='text-xl w-full'>Nenhum quiz encontrado</h1>
                         ) : (
-                            quiz
-                                .filter(quizItem => quizItem.id !== deletedQuizId)
+
+                            quiz.filter(quizItem => quizItem.id !== deletedQuizId)
                                 .map((quizItem) => (
                                     <Card title={quizItem.title} key={quizItem.id} {...quizItem}>
-                                        <ButtonCard type={"abrir"} id={quizItem.id} />
+                                        <ButtonCard type={"abrir"} id={quizItem.id} route={`${selectedRevision.value}`} />
                                         <ButtonCard type={"excluir"} id={quizItem.id} onRemove={handleRemoveQuiz} route={"quiz"} />
                                     </Card>
                                 ))
+
                         )
                     )}
                 </div>

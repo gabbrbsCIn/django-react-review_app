@@ -9,6 +9,7 @@ from .serializers import RevisionSerializer, QuizSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from rest_framework.views import APIView
+from rest_framework import status
 
 from . import utils
 
@@ -86,3 +87,12 @@ class QuizDeleteView(generics.DestroyAPIView):
     def perform_destroy(self, instance):
         instance.delete()
         return JsonResponse({"msg": "Quiz deletado com sucesso!"})
+
+class ValidateQuizView(APIView):
+    def get(self, request, revision_id, quiz_id):
+        try:
+            revision = Revision.objects.get(pk=revision_id)
+            quiz = Quiz.objects.get(pk=quiz_id, revision=revision)
+            return JsonResponse({"msg": "Quiz válido!"}, status=status.HTTP_200_OK)
+        except Quiz.DoesNotExist:
+            return JsonResponse({"error": "Quiz não encontrado"}, status=status.HTTP_404_NOT_FOUND)
