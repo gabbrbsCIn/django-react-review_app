@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound';
 import Quiz from './pages/Quiz';
 import Revision from './pages/Revision';
 import RevisionItem from './pages/RevisionItem';
+import QuizItem from "./pages/QuizItem";
 
 import Sidebar from './components/SideBar';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -85,6 +86,11 @@ function App() {
         <Route path="/fichamentos/:id" element={
           <ProtectedRouteLayout>
             <RevisionItem />
+          </ProtectedRouteLayout>
+        } />
+        <Route path="/quiz/:revision_id/:quiz_id" element={
+          <ProtectedRouteLayout>
+            <QuizItem />
           </ProtectedRouteLayout>
         } />
         <Route path="*" element={

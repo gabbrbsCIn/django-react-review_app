@@ -13,7 +13,7 @@ function ButtonCard({ type, id, onRemove, route }) {
             try {
                 const response = await api.delete(`${route}/${id}`);
                 console.log(response);
-                alert('Fichamento excluído com sucesso!')
+                alert('Excluído com sucesso!')
                 onRemove(id);
 
             } catch (error) {
@@ -30,11 +30,14 @@ function ButtonCard({ type, id, onRemove, route }) {
         } else if (type === "abrir") {
             setText('Abrir');
             setButtonClass('bg-yellow-200 px-4 py-1 rounded-xl hover:bg-yellow-400 transition duration-300 mr-2');
+            
         }
     }, [type]);
 
     return (
-        type === "abrir" ? <Link to={`/fichamentos/${id}`} className={buttonClass}>{text}</Link> : <button className={buttonClass} onClick={handleDelete}>{text}</button>
+        type === "abrir" && route === "revision" ? <Link to={`/fichamentos/${id}`} className={buttonClass} >{text}</Link> :
+            type === "abrir" ? <Link to={`/quiz/${route}/${id}`} className={buttonClass}>{text}</Link> :
+                <button className={buttonClass} onClick={handleDelete}>{text}</button>
     );
 }
 

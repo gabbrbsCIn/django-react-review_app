@@ -22,7 +22,7 @@ function Revision() {
                             {revisions.length === 0 ? <h1 className='text-xl w-full'>Nenhum fichamento encontrado </h1> :
                                 revisions.map((revision) => (
                                     <Card title={revision} key={revision.id} {...revision}>
-                                        <ButtonCard type={"abrir"} id={revision.id} />
+                                        <ButtonCard type={"abrir"} id={revision.id} route={"revision"}/>
                                         <ButtonCard type={"excluir"} id={revision.id} onRemove={removeRevision} route={"revision"} />
                                     </Card>
                                 ))}
