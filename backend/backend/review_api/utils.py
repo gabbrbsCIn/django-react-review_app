@@ -64,7 +64,8 @@ def generate_quiz(data):
 def save_quiz(data, user, revision):
     user = User.objects.get(username=user)
     revision_instance = Revision.objects.get(id=revision['id'])
-    quiz = Quiz.objects.create(revision=revision_instance, title="Quiz - " + revision['title'])
+    number_of_quizzes_in_table = str(Quiz.objects.filter(revision=revision_instance).count() + 1)
+    quiz = Quiz.objects.create(revision=revision_instance, title="Quiz - "+ revision['title']+" "+ number_of_quizzes_in_table, user=user)
 
     for key, value in data.items():
         question = Question.objects.create(quiz=quiz, text=value['question'])
