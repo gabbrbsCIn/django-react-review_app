@@ -34,19 +34,6 @@ function TextBox({ revision }) {
         };
     }, [debouncedSave]);
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     try {
-    //         const response = await api.post('/generate-quiz', {
-    //             text: text
-    //         });
-
-    //         setQuiz(response.data);
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
 
     return (
         <div className='flex justify-center h-screen w-full py-20 px-36'>

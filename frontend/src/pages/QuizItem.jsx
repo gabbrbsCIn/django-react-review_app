@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
+import QuizBox from '../components/QuizBox';
+
 function QuizItem() {
     const { revision_id, quiz_id } = useParams();
     const [isValid, setIsValid] = useState(false);
@@ -27,9 +29,8 @@ function QuizItem() {
     }
 
     return (
-        <div>
-            <h1>QuizItem : {revision_id} {quiz_id}</h1>
-            {/* Outros conteúdos do componente */}
+        <div className='h-screen w-screen'>
+            <QuizBox />
         </div>
     );
 }
