@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views import View
 
-from .models import Revision, Quiz
+from .models import Revision, Quiz, Question, Choice
 
-from .serializers import RevisionSerializer, QuizSerializer
+from .serializers import RevisionSerializer, QuizSerializer, QuestionSerializer
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
@@ -96,3 +96,13 @@ class ValidateQuizView(APIView):
             return JsonResponse({"msg": "Quiz válido!"}, status=status.HTTP_200_OK)
         except Quiz.DoesNotExist:
             return JsonResponse({"error": "Quiz não encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class QuestionListView(generics.ListAPIView):
+    serializer_class = QuestionSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        quiz_id = self.kwargs.get('quiz_id')
+        return Question.objects.filter(quiz_id=quiz_id)
+
