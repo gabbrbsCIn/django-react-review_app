@@ -1,30 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { CircleArrowRight, CircleArrowLeft, LoaderIcon } from 'lucide-react';
-import { getQuestions } from '../services/quizService';
+import { getQuestions, getChoices } from '../services/quizService';
 import { useParams } from 'react-router-dom';
 
 function QuizBox() {
     const { revision_id, quiz_id } = useParams();
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [questions, setQuestions] = useState();
+    const [questions, setQuestions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [choices, setChoices] = useState([]);
 
     useEffect(() => {
-        getQuestions(quiz_id).then((data) => {
-            console.log(data);
-            setQuestions(data);
-            setIsLoading(false);
-        });
+        setIsLoading(true);
+        Promise.all([getQuestions(quiz_id), getChoices(quiz_id)])
+            .then(([questionsData, choicesData]) => {
+                setQuestions(questionsData);
+                setChoices(choicesData);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
     }, [revision_id, quiz_id]);
 
+
+    const currentChoices = choices.filter((choice) => choice.question_id === questions[currentQuestion]?.id);
+
     const handleNext = () => {
-        setCurrentQuestion((prevQuestion) => (prevQuestion + 1) % questions.length);
+        if (currentQuestion === questions.length - 1) {
+            setCurrentQuestion(0);
+        } else {
+            setCurrentQuestion(currentQuestion + 1);
+        }
     };
 
     const handlePrev = () => {
-        setCurrentQuestion((prevQuestion) => (prevQuestion - 1 + questions.length) % questions.length);
-    };
+        if (currentQuestion === 0) {
+            setCurrentQuestion(questions.length - 1);
+        } else {
+            setCurrentQuestion(currentQuestion - 1);
 
+        };
+    }
     return (
         <div className='flex justify-center h-full py-20 px-80'>
             <div className='flex flex-col items-center h-full w-full bg-gray-200 p-4 rounded-lg font-poppins'>
@@ -32,7 +48,14 @@ function QuizBox() {
                     {isLoading ? (
                         <LoaderIcon />
                     ) : (
-                        <h1>{questions[currentQuestion].text}</h1>
+                        <>
+                            <h1>{questions[currentQuestion]?.text}</h1>
+                            <div className='flex flex-col h-full justify-center space-y-3.5'>
+                                {currentChoices.map((choice, index) => (
+                                    <button key={index}>{choice.text}</button>
+                                ))}
+                            </div>
+                        </>
                     )}
                 </div>
 
@@ -46,18 +69,18 @@ function QuizBox() {
                 </div>
 
                 <div className='flex py-4 justify-center gap-7 cursor-pointer'>
-                    {isLoading ? null : (
+                    {!isLoading &&
                         questions.map((question, index) => (
                             <div
                                 onClick={() => {
                                     setCurrentQuestion(index);
+                                    console.log(index);
                                 }}
                                 key={"circle" + index}
-                                className={`rounded-full w-4 h-4 bg-gray-800 transition-opacity duration-300 ${index === currentQuestion ? 'bg-gray-700 ' : 'bg-white'
+                                className={`rounded-full w-4 h-4 bg-gray-800 transition-opacity duration-300 ${index === currentQuestion ? 'bg-gray-700' : 'bg-white'
                                     }`}
                             ></div>
-                        ))
-                    )}
+                        ))}
                 </div>
             </div>
         </div>
