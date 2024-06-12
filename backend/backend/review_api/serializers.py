@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Revision, Quiz, Question
+from .models import Revision, Quiz, Question, Choice
 
 class RevisionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,4 +17,10 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ['id', 'text', 'quiz_id']
+        read_only_fields = []
+
+class ChoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Choice
+        fields = ['id', 'text', 'is_correct', 'question_id']
         read_only_fields = []

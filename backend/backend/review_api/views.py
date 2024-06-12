@@ -4,7 +4,7 @@ from django.views import View
 
 from .models import Revision, Quiz, Question, Choice
 
-from .serializers import RevisionSerializer, QuizSerializer, QuestionSerializer
+from .serializers import RevisionSerializer, QuizSerializer, QuestionSerializer, ChoiceSerializer
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
@@ -106,3 +106,15 @@ class QuestionListView(generics.ListAPIView):
         quiz_id = self.kwargs.get('quiz_id')
         return Question.objects.filter(quiz_id=quiz_id)
 
+
+class ChoiceListView(generics.ListAPIView):
+    serializer_class = ChoiceSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        quiz_id = self.kwargs.get('quiz_id')
+        questions = Question.objects.filter(quiz_id=quiz_id)
+        choices = Choice.objects.filter(question__in=questions)
+        return choices
+
+    

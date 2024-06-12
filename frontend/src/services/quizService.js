@@ -8,3 +8,14 @@ export const getQuestions = async (quiz_id) => {
         console.error(error);
     }
 };
+
+export const getChoices = async (quiz_id) => {
+    try { 
+        const response = await api.get(`choices/${quiz_id}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    };
+
+
+}
