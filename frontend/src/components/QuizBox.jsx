@@ -42,7 +42,7 @@ function QuizBox() {
         };
     }
     return (
-        <div className='flex justify-center h-full py-20 px-80'>
+        <div className='flex justify-center h-full py-20 px-72'>
             <div className='flex flex-col items-center h-full w-full bg-gray-200 p-4 rounded-lg font-poppins'>
                 <div className="relative w-full h-full">
                     {isLoading ? (
@@ -50,21 +50,23 @@ function QuizBox() {
                     ) : (
                         <>
                             <h1>{questions[currentQuestion]?.text}</h1>
-                            <div className='flex flex-col h-full justify-center space-y-3.5'>
+                            <div className='flex flex-col h-full w-full justify-center space-y-5 px-20 '>
                                 {currentChoices.map((choice, index) => (
-                                    <button key={index}>{choice.text}</button>
+                                    <div className='flex flex-col justify-center rounded-md border border-slate-800 h-[12%] w-full hover:bg-amber-300 transition duration-200'>
+                                        <button key={index} className='text-xs h-full'>{choice.text}</button>
+                                    </div>
                                 ))}
                             </div>
                         </>
                     )}
                 </div>
 
-                <div className="flex justify-between px-10 w-full mt-4">
+                <div className="flex justify-between px-10 w-full mt-4 relative z-10">
                     <button onClick={handlePrev}>
-                        <CircleArrowLeft size={32} />
+                        <CircleArrowLeft size={32} className="hover:scale-110" />
                     </button>
                     <button onClick={handleNext}>
-                        <CircleArrowRight size={32} />
+                        <CircleArrowRight size={32} className="hover:scale-110" />
                     </button>
                 </div>
 
