@@ -19,3 +19,21 @@ export const getChoices = async (quiz_id) => {
 
 
 }
+
+export const verifyCorrectAnswers = (answers) => {
+    let correctAnswers = 0;
+    let score = {};
+
+    for (let key in answers) {
+        if (answers[key].is_correct === true) {
+            correctAnswers++;
+        }
+    }
+    const performance = (correctAnswers / Object.keys(answers).length) * 100;
+    return score = {correctAnswersPercentage: performance.toFixed(2), numberOfCorrectAnswers: correctAnswers};
+}
+
+export const saveQuizResult = async (result) => {
+    const response = await api.post('quiz-results/', result);
+    return response.data;
+};
