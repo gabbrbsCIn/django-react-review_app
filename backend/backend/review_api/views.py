@@ -2,14 +2,15 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views import View
 
-from .models import Revision, Quiz, Question, Choice
+from .models import Revision, Quiz, Question, Choice, QuizResult
 
-from .serializers import RevisionSerializer, QuizSerializer, QuestionSerializer, ChoiceSerializer
+from .serializers import RevisionSerializer, QuizSerializer, QuestionSerializer, ChoiceSerializer, QuizResultSerializer
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework.response import Response
 
 from . import utils
 
@@ -117,4 +118,32 @@ class ChoiceListView(generics.ListAPIView):
         choices = Choice.objects.filter(question__in=questions)
         return choices
 
-    
+class LastQuizResultView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        last_result = QuizResult.objects.filter(user=user).order_by('-date_taken').first()
+        if last_result:
+            quiz = last_result.quiz
+            serializer = QuizSerializer(quiz, context={'request': request})
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({"message": "No quiz results found"}, status=status.HTTP_404_NOT_FOUND)
+
+class SaveQuizResultView(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = QuizResultSerializer
+
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        quiz_id = request.data.get('quiz_id')
+        score = request.data.get('score')
+
+        try:
+            quiz = Quiz.objects.get(id=quiz_id)
+        except Quiz.DoesNotExist:
+            return JsonResponse({'error': 'Quiz not found'})
+
+        quiz_result = QuizResult.objects.create(user=user, quiz=quiz, score=score)
+        serializer = self.get_serializer(quiz_result)
+        return JsonResponse(serializer.data)

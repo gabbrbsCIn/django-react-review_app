@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Revision, Quiz, Question, Choice
+from .models import Revision, Quiz, Question, Choice, QuizResult
 
 class RevisionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,10 +8,16 @@ class RevisionSerializer(serializers.ModelSerializer):
         read_only_fields = ['user_id']
 
 class QuizSerializer(serializers.ModelSerializer):
+    last_result = serializers.SerializerMethodField()
+
     class Meta:
         model = Quiz
-        fields = ['id', 'title', 'description', 'revision_id']
-        read_only_fields = ['revision_id']
+        fields = ['id', 'title', 'last_result', 'revision_id']
+
+    def get_last_result(self, obj):
+        user = self.context['request'].user
+        last_result = QuizResult.objects.filter(user=user, quiz=obj).order_by('-date_taken').first()
+        return QuizResultSerializer(last_result).data if last_result else None
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,3 +30,9 @@ class ChoiceSerializer(serializers.ModelSerializer):
         model = Choice
         fields = ['id', 'text', 'is_correct', 'question_id']
         read_only_fields = []
+
+
+class QuizResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = QuizResult
+        fields = ['score', 'date_taken']
