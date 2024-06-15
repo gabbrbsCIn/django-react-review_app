@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CircleArrowRight, CircleArrowLeft, LoaderIcon, Laugh, Smile, Frown } from 'lucide-react';
-import { getQuestions, getChoices, verifyCorrectAnswers } from '../services/quizService';
+import { getQuestions, getChoices, verifyCorrectAnswers, saveQuizResult } from '../services/quizService';
 import { useParams } from 'react-router-dom';
 
 function QuizBox() {
@@ -72,6 +72,10 @@ function QuizBox() {
             setIsModalOpen(true);
             handleEmoji(score.correctAnswersPercentage);
 
+            saveQuizResult({
+                quiz_id: quiz_id,
+                score: score.numberOfCorrectAnswers,
+            });
         }
     };
 
