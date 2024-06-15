@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CircleArrowRight, CircleArrowLeft, LoaderIcon } from 'lucide-react';
+import { CircleArrowRight, CircleArrowLeft, LoaderIcon, Laugh, Smile, Frown } from 'lucide-react';
 import { getQuestions, getChoices, verifyCorrectAnswers } from '../services/quizService';
 import { useParams } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ function QuizBox() {
     const [correctAnswersCount, setCorrectAnswersCount] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [emoji, setEmoji] = useState(null);
 
     useEffect(() => {
         setIsLoading(true);
@@ -43,15 +44,25 @@ function QuizBox() {
         }
     };
 
-    const handleAnswer = (choice) => {
+    const handleAnswers = (choice) => {
         setAnswers({
             ...answers,
             [questions[currentQuestion].id]: choice,
         });
-        console.log(answers)
     };
 
-    const handleSubmit = () => {
+    const handleEmoji = (correctAnswersPercentage) => {
+        console.log(correctAnswersPercentage);
+        if (correctAnswersPercentage == 100.00) {
+            setEmoji(<Laugh />);
+        } else if (correctAnswersPercentage >= 60.00) {
+            setEmoji(<Smile />);
+        } else {
+            setEmoji(<Frown />);
+        }
+    }
+
+    const submitAnswers = () => {
         if (questions.length !== Object.keys(answers).length) {
             alert('Você deve responder todas as perguntas antes de enviar.');
         }
@@ -59,13 +70,14 @@ function QuizBox() {
             const score = verifyCorrectAnswers(answers);
             setCorrectAnswersCount(score.numberOfCorrectAnswers);
             setIsModalOpen(true);
+            handleEmoji(score.correctAnswersPercentage);
+
         }
     };
+
     const closeModal = () => {
         setIsModalOpen(false);
     };
-
-    console.log(questions, answers);
 
     return (
         <div className='flex justify-center h-full py-20 px-72'>
@@ -82,7 +94,7 @@ function QuizBox() {
                                         key={index}
                                         className={`flex flex-col justify-center rounded-md border ${answers[questions[currentQuestion]?.id] === choice ? 'bg-amber-400' : 'border-slate-800'} h-[12%] w-full hover:bg-amber-300 `}
                                     >
-                                        <button onClick={() => handleAnswer(choice)} className='text-xs h-full w-full'>{choice.text}</button>
+                                        <button onClick={() => handleAnswers(choice)} className='text-xs h-full w-full'>{choice.text}</button>
                                     </div>
                                 ))}
                             </div>
@@ -117,7 +129,7 @@ function QuizBox() {
                         className={`
                                 w-[100px] h-[30px] text-xs rounded-md ${questions.length !== Object.keys(answers).length ? 'border-2 border-amber-400 cursor-default'
                                 : 'bg-amber-400 hover:bg-amber-500 transition-opacity duration-400'}`}
-                        onClick={handleSubmit}
+                        onClick={submitAnswers}
                     >
                         Ver resultado
                     </button>
@@ -128,6 +140,9 @@ function QuizBox() {
                             <h2 className="text-xl font-bold">Resultados</h2>
                             <p>Você acertou {correctAnswersCount} de {questions.length} perguntas!</p>
                             <button onClick={closeModal} className="mt-4 bg-amber-400 hover:bg-amber-500 text-white py-1 px-4 rounded">Fechar</button>
+                            <div className='w-full flex justify-end'>
+                                {emoji}
+                            </div>
                         </div>
                     </div>
                 )}
