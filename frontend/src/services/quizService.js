@@ -32,3 +32,8 @@ export const verifyCorrectAnswers = (answers) => {
     const performance = (correctAnswers / Object.keys(answers).length) * 100;
     return score = {correctAnswersPercentage: performance.toFixed(2), numberOfCorrectAnswers: correctAnswers};
 }
+
+export const saveQuizResult = async (result) => {
+    const response = await api.post('quiz-results/', result);
+    return response.data;
+};
