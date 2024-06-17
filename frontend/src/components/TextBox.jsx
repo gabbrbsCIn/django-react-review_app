@@ -3,7 +3,7 @@ import { debounce } from 'lodash';
 
 import api from '../services/api';
 
-import ReviewButton from './ReviewButton';
+import GetQuizButton from './GetQuizButton';
 
 function TextBox({ revision }) {
     const [text, setText] = useState(revision.text);
@@ -45,7 +45,7 @@ function TextBox({ revision }) {
                     className='bg-gray-100 w-full p-2 border border-gray-300 rounded-lg focus:outline-none h-full max-h-full'
                     placeholder="Digite aqui..."
                 />
-                <ReviewButton route="/get-review" data={text} revision={revision} />
+                <GetQuizButton data={text} revision={revision} />
             </div>
         </div>
     )

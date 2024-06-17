@@ -3,8 +3,6 @@ import { LoaderIcon } from 'lucide-react';
 
 import UserContext from '../contexts/userContext';
 
-import Card from '../components/Card';
-import ButtonCard from '../components/ButtonCard';
 import MainLayout from '../components/MainLayout';
 import api from '../services/api';
 
@@ -26,7 +24,6 @@ function Home() {
       .then(response => {
         setlastQuiz(response.data);
         setLoading(false); 
-        console.log(response.data)
       })
       .catch(error => {
         console.error("Não foi possível carregar o último resultado do quiz", error);

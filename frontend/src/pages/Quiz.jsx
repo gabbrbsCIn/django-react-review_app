@@ -59,7 +59,7 @@ function Quiz() {
     return (
         <MainLayout title={title}>
             <div className='flex flex-col'>
-                <div className='flex pl-36 py-4'>
+                <div className='flex pl-36 mr-5 h-8 text-sm rounded-md'>
                     <Select
                         options={revisionOptions}
                         onChange={setSelectedRevision}
