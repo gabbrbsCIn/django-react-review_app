@@ -17,22 +17,13 @@ from . import utils
 import json
 
 
-class GetReview(APIView):
+class CreateAndSaveQuiz(APIView):
     def post(self, request):
         data = request.data
         quiz_dict = utils.generate_quiz(data.get('data'))
-        return JsonResponse(quiz_dict)
-
-
-class SaveQuiz(APIView):
-    def post(self, request):
-        data = request.data
         revision = request.data.get('revision')
-        print(data.get('data'))
-        quiz = data.get('data')
-        quiz_saved = utils.save_quiz(quiz, request.user, revision)
-        return JsonResponse({"msg": "Quiz salvo com sucesso!"})
-
+        quiz_saved = utils.save_quiz(quiz_dict, request.user, revision)
+        return JsonResponse({"msg": "Quiz gerado e salvo com sucesso!"})
         
 
 class RevisionManagerView(generics.ListCreateAPIView):
