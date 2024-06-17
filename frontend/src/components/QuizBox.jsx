@@ -13,6 +13,7 @@ function QuizBox() {
     const [isLoading, setIsLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [emoji, setEmoji] = useState(null);
+    const [showRightChoice, setShowRightChoice] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);
@@ -71,11 +72,13 @@ function QuizBox() {
             setCorrectAnswersCount(score.numberOfCorrectAnswers);
             setIsModalOpen(true);
             handleEmoji(score.correctAnswersPercentage);
+            setShowRightChoice(true)
 
             saveQuizResult({
                 quiz_id: quiz_id,
                 score: score.numberOfCorrectAnswers,
             });
+
         }
     };
 
@@ -96,7 +99,10 @@ function QuizBox() {
                                 {currentChoices.map((choice, index) => (
                                     <div
                                         key={index}
-                                        className={`flex flex-col justify-center rounded-md border ${answers[questions[currentQuestion]?.id] === choice ? 'bg-amber-400' : 'border-slate-800'} h-[12%] w-full hover:bg-amber-300 `}
+                                        className={`flex flex-col justify-center rounded-md border 
+                                            ${answers[questions[currentQuestion]?.id] === choice ? 'bg-amber-400' : 'border-slate-800'} 
+                                            ${showRightChoice && choice.is_correct ? 'bg-green-400 border-none' : ''}
+                                            h-[12%] w-full hover:bg-amber-300 `}
                                     >
                                         <button onClick={() => handleAnswers(choice)} className='text-xs h-full w-full'>{choice.text}</button>
                                     </div>
@@ -130,9 +136,8 @@ function QuizBox() {
                 </div>
                 <div className='flex w-full justify-end'>
                     <button
-                        className={`
-                                w-[100px] h-[30px] text-xs rounded-md ${questions.length !== Object.keys(answers).length ? 'border-2 border-amber-400 cursor-default'
-                                : 'bg-amber-400 hover:bg-amber-500 transition-opacity duration-400'}`}
+                        className={`w-[100px] h-[30px] text-xs rounded-md ${questions.length !== Object.keys(answers).length ? 'border-2 border-amber-400 cursor-default'
+                            : 'bg-amber-400 hover:bg-amber-500 transition-opacity duration-400'}`}
                         onClick={submitAnswers}
                     >
                         Ver resultado
