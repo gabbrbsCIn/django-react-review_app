@@ -13,8 +13,7 @@ import api from '../services/api';
 function Home() {
   const { user } = useContext(UserContext);
   const [lastQuiz, setlastQuiz] = useState(null);
-  const [loading, setLoading] = useState(true); // Variável de estado para controlar o carregamento
-
+  const [loading, setLoading] = useState(true); 
   if (!user) {
     return <div className='p-36'><LoaderIcon /></div>;
   }
@@ -26,12 +25,12 @@ function Home() {
     api.get('last-quiz-result')
       .then(response => {
         setlastQuiz(response.data);
-        setLoading(false); // Atualiza a variável de estado para indicar que o carregamento foi concluído
+        setLoading(false); 
         console.log(response.data)
       })
       .catch(error => {
         console.error("Não foi possível carregar o último resultado do quiz", error);
-        setLoading(false); // Atualiza a variável de estado mesmo em caso de erro
+        setLoading(false); 
       });
   }, []);
 
@@ -40,7 +39,7 @@ function Home() {
     <MainLayout title={title}>
 
       <div className="ml-36">
-        {loading ? ( // Renderiza o LoaderIcon enquanto o carregamento estiver em andamento
+        {loading ? ( 
           <div className='p-36'><LoaderIcon /></div>
         ) : (
           lastQuiz ? (
