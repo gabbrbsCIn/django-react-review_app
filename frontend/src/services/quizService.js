@@ -10,7 +10,7 @@ export const getQuestions = async (quiz_id) => {
 };
 
 export const getChoices = async (quiz_id) => {
-    try { 
+    try {
         const response = await api.get(`choices/${quiz_id}`);
         return response.data;
     } catch (error) {
@@ -30,10 +30,11 @@ export const verifyCorrectAnswers = (answers) => {
         }
     }
     const performance = (correctAnswers / Object.keys(answers).length) * 100;
-    return score = {correctAnswersPercentage: performance.toFixed(2), numberOfCorrectAnswers: correctAnswers};
+    return score = { correctAnswersPercentage: performance.toFixed(2), numberOfCorrectAnswers: correctAnswers };
 }
 
 export const saveQuizResult = async (result) => {
     const response = await api.post('quiz-results/', result);
     return response.data;
 };
+
