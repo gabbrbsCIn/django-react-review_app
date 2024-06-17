@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from app.views import CreateUserView
+from accounts.views import CreateUserView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
@@ -10,5 +10,5 @@ urlpatterns = [
     path('app/token/refresh/', TokenRefreshView.as_view(), name='refresh'),
     path('app-auth/', include("rest_framework.urls")),
     path('', include("review_api.urls")),
-    path('users/', include("app.urls")),
+    path('users/', include("accounts.urls")),
 ]
