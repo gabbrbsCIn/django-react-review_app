@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import api from "../services/api";
+import toast from "react-hot-toast";
 
 
 function ButtonCard({ type, id, onRemove, route }) {
@@ -13,7 +14,7 @@ function ButtonCard({ type, id, onRemove, route }) {
             try {
                 const response = await api.delete(`${route}/${id}`);
                 console.log(response);
-                alert('Excluído com sucesso!')
+                toast.success('Excluído com sucesso!')
                 onRemove(id);
 
             } catch (error) {
