@@ -1,4 +1,3 @@
-// components/QuizBox.js
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuizData } from '../hooks/useQuizData';
