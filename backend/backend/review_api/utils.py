@@ -37,9 +37,9 @@ def parse_quiz(quiz_text):
 
 
 def generate_quiz(data):
-    script = f'''Faça tipo um quiz de revisão de conteúdo (com 8 perguntas e 4 quatro alternativas cada, com o gabarito delas no fim)  de acordo com este meu fichamento: {data}. Use esse modelo como base: **Quiz de Revisão**
+    script = f'''Faça tipo um quiz de revisão de conteúdo (com 8 perguntas e 4 quatro alternativas cada, com o gabarito delas no fim)  de acordo com este meu fichamento: {data}. Use esse MODELO como base: **Quiz de Revisão**
 
-    **1. Pergunta?**
+    **1. (Pergunta da questão)**
     (a) x
     (b) y
     (c) z.
