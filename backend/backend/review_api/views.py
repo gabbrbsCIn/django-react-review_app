@@ -118,8 +118,8 @@ class LastQuizResultView(APIView):
         if last_result:
             quiz = last_result.quiz
             serializer = QuizSerializer(quiz, context={'request': request})
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response({"message": "No quiz results found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response(serializer.data)
+        return Response({"msg": "Nenhum quiz encontrado!"})
 
 class SaveQuizResultView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
@@ -133,7 +133,7 @@ class SaveQuizResultView(generics.CreateAPIView):
         try:
             quiz = Quiz.objects.get(id=quiz_id)
         except Quiz.DoesNotExist:
-            return JsonResponse({'error': 'Quiz not found'})
+            return JsonResponse({'error': 'Quiz não encontrado!'})
 
         quiz_result = QuizResult.objects.create(user=user, quiz=quiz, score=score)
         serializer = self.get_serializer(quiz_result)
