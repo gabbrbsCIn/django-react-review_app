@@ -9,7 +9,9 @@ Estudos demonstram que a melhor forma de aprender um assunto é forçando sua me
 ## 🚀 Tecnologias Utilizadas
 
 - **Django**: Framework backend poderoso e escalável.
+- **Django Rest Framework**: O Django REST Framework (DRF) é uma biblioteca poderosa e flexível para criar APIs Web em Django.
 - **Vite React**: Ferramenta frontend moderna para construção de interfaces de usuário rápidas e interativas.
+- **Tailwind CSS**: O Tailwind CSS é um framework CSS de código aberto que se destaca por sua abordagem única de design utilitário. 
 
 ## 🛠️ Funcionalidades
 
@@ -61,6 +63,13 @@ Siga estas instruções para obter uma cópia do projeto em funcionamento na sua
 ## 🤝 Contribuições
 
 Contribuições são sempre bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests. Para grandes mudanças, por favor, abra um issue primeiro para discutir o que você gostaria de mudar.
+
+## 🔮 Alterações Futuras
+Aqui estão algumas ideias e funcionalidades que planejamos implementar no ReviewApp no futuro:
+
+- Melhoria na Interface do Usuário: Continuar refinando a interface para torná-la ainda mais intuitiva e amigável.
+- Sistema de Análise de Desempenho: Adicionar um dashboard que mostra o progresso do usuário e áreas que precisam de mais revisão.
+- Refatorar código para prover melhor manuntenabilidade, escalabilidade e legibilidade.
 
 ## 💬 Contato
 
