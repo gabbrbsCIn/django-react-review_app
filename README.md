@@ -60,6 +60,12 @@ Siga estas instruções para obter uma cópia do projeto em funcionamento na sua
 
 - Acesse o frontend da aplicação via navegador em `http://localhost:5173`
 - Acesse o backend via `http://localhost:8000/` para gerenciar o conteúdo.
+  
+
+## 🎥 Vídeo do Funcionamento da aplicação
+
+https://github.com/gabbrbsCIn/django-react-review_app/assets/114198656/5f5e761f-a085-4f45-beff-0d5c28e5f81a
+
 
 ## 🤝 Contribuições
 
