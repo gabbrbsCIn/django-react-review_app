@@ -11,7 +11,8 @@ Estudos demonstram que a melhor forma de aprender um assunto é forçando sua me
 - **Django**: Framework backend poderoso e escalável.
 - **Django Rest Framework**: O Django REST Framework (DRF) é uma biblioteca poderosa e flexível para criar APIs Web em Django.
 - **Vite React**: Ferramenta frontend moderna para construção de interfaces de usuário rápidas e interativas.
-- **Tailwind CSS**: O Tailwind CSS é um framework CSS de código aberto que se destaca por sua abordagem única de design utilitário. 
+- **Tailwind CSS**: O Tailwind CSS é um framework CSS de código aberto que se destaca por sua abordagem única de design utilitário.
+- **Gemini API**: O Quiz é gerado a partir de uma integração com a API do Gemini, que gera o quiz em formato de texto. 
 
 ## 🛠️ Funcionalidades
 
