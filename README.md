@@ -4,7 +4,7 @@ Bem-vindo ao **ReviewApp**! Esta aplicação web foi desenvolvida para transform
 
 ## 🎯 Objetivo do Projeto
 
-Estudos demonstram que a melhor forma de aprender um assunto é forçando sua mente a lembrar dele sem consultar fontes externas, através das revisões de conteúdo. **ReviewApp** foi criado com esse objetivo: **potencializar sua aprendizagem** ao automatizar a criação de perguntas e respostas baseadas nos seus fichamentos.
+Estudos demonstram que a melhor forma de aprender um assunto é forçando sua mente a lembrar dele sem consultar fontes externas, através das revisões de conteúdo. **ReviewApp** foi criado com esse objetivo: **potencializar sua aprendizagem** ao automatizar a criação de perguntas e respostas baseadas nos seus fichamentos. Na aplicação, o usuário pode criar anotações e, a partir delas, gerar quizzes a fim de revisar o seu aprendizado.
 
 ## 🚀 Tecnologias Utilizadas
 
